@@ -1,0 +1,6 @@
+.selected{
+    @apply bg-cyan-800    text-white  flex items-center  py-2 text-sm leading-6 font-medium rounded-md;
+}
+.notSelected{
+    @apply text-cyan-300   hover:text-white hover:bg-cyan-600  flex items-center  py-2 text-sm leading-6 font-medium rounded-md;
+}

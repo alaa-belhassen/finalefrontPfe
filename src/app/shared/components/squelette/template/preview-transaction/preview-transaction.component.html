@@ -1,0 +1,32 @@
+<ul role="list" class=" divide-y my-2 overflow-hidden  ">
+    <li>
+      <a (click)="redirect()" class=" cursor-pointer dark:bg-slate-800 block px-4 py-4  hover:bg-gray-50">
+        <span  class="flex items-center space-x-4">
+          <span class="flex-1 flex space-x-2 truncate">
+            <!-- Heroicon name: solid/cash -->
+            <svg class="dark:text-white flex-shrink-0 w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+            </svg>
+                    <span class="dark:text-slate-300 flex flex-col text-gray-500 text-sm truncate" >
+                      <span class="truncate">{{transaction.transaction.signatures[0] | pubKeyFormat : 5 }}</span>
+                      <span *ngIf="transaction.transaction.message.accountKeys.length-3 > 1 " class="inline-flex dark:bg-slate-300 dark:text-slate-500 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">multipleTransactions</span>
+                      <span *ngIf="transaction.transaction.message.accountKeys.length-3 <= 1 " class="inline-flex dark:bg-slate-300 dark:text-slate-500 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">TransactionSimple</span>
+                    <!-- <div class="" *ngFor="let key of counter(transaction.transaction.message.accountKeys.length-2),let i=index">
+                        <p class="text-gray-900 dark:text-cyan-100 font-medium"> {{abs((transaction.meta.preBalances[i+1]-transaction.meta.postBalances[i+1])/lamport)}}</p>
+                      </div> -->
+                      
+                      <time datetime="2020-07-11">{{date}}</time>
+                    </span>
+          </span>
+       
+          <!-- Heroicon name: solid/chevron-right-->
+          <svg class="flex-shrink-0 h-5 w-5  text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg> 
+        </span>
+      </a>
+    </li>
+
+    <!-- More transactions... -->
+  </ul>
+

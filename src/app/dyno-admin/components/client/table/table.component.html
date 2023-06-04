@@ -1,0 +1,93 @@
+<div class=" flex mt-16 justify-between text-center text-sm     ">
+    <div class="bg-cyan-700  p-2 pl-4 gap-2 h-12 flex  ">
+      <button (click)="state = 1 ; changeData(state)" [ngClass]="state == 1 ? 'selected' : ''" class=" notSelected transition mx-1 duration-300 ease-in-out   px-4 h-8">Société</button>
+      <button (click)="state = 2 ; changeData(state)" [ngClass]="state == 2 ? 'selected' : ''" class=" notSelected transition duration-300 ease-in-out px-4 h-8">Commercant</button>
+      <button (click)="state = 3 ; changeData(state)" [ngClass]="state == 3 ? 'selected' : ''" class=" notSelected transition duration-300 ease-in-out px-4 h-8">Employé</button>
+
+    </div>
+    <div class="gap-2 flex justify-between mx-2">
+      <input  placeholder="Matricule Fiscale" class=" dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-900 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" [(ngModel)]="filterEntity.matriculeFiscale">
+      <input  placeholder="Nom Société" class=" dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-900 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" [(ngModel)]="filterEntity.employer.userName">
+    </div> 
+  
+    <div class="mx-8">
+      <button *ngIf="state != 3" (click)="Redirect()" class=" bg-cyan-700  notSelected transition duration-300  ease-in-out  px-4 h-8  ">Nouveau client</button>
+    </div>
+    
+  </div>
+
+<div class="">
+
+    <table mat-table class="dark:bg-slate-800 "  matTableFilter [exampleEntity]="filterEntity" [filterType]="filterType" [dataSource]="dataSource">
+  
+      <!-- Position Column -->
+   
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Nom Société </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{'bg': element?.blocked != 'null'}" class=" dark:text-slate-300 "> {{element?.employer.userName }} </td>
+      </ng-container>
+      <ng-container matColumnDef="nameCommercant">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Nom Commercant </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{'bg': element?.blocked != 'null'}" class=" dark:text-slate-300 "> {{element?.employer.userName }} </td>
+      </ng-container>
+      <ng-container matColumnDef="nameemployee">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Nom Employé </th>
+        <td mat-cell *matCellDef="let element"  class=" dark:text-slate-300 "> {{element?.user.userName }} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Matricule Fiscale </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{'bg': element?.blocked != 'null'}" class=" dark:text-slate-300 "> {{element?.matriculeFiscale}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol" >
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Demandes </th>
+        <td mat-cell *matCellDef="let element , index as i "  [ngClass]="{'bg': element?.blocked != 'null'}" class=" dark:text-slate-300">{{element?.demandeTransaction.length}} demandes</td>
+      </ng-container>
+      
+      <ng-container matColumnDef="nbemployer">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Nombre employé </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300 " [ngClass]="{'bg': element?.blocked != 'null'}"> <span class="mx-8">{{element?.employment.length}}</span> </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Actions
+          <mat-icon  matTooltip="voir toutes les utilisateurs" (click)="blocked()" class="text-slate-400 text-lg pt-1 mx-1 cursor-pointer">remove_red_eye</mat-icon>  
+        </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300" [ngClass]="{'bg': element?.blocked != 'null'}">  <span class="ml-4 flex-shrink-0 flex items-start space-x-4">
+         
+          <button  matTooltip="bloqué un utilisateur" *ngIf="element.blocked == 'null'"  (click)="openDialog(element?.employer.id)" type="button" class=" dark:text-slate-300   rounded-md font-medium text-cyan-600 hover:text-cyan-500 "><mat-icon [ngClass]="{'unblock': element?.blocked != 'null'}" class="text-red-600 text-lg">block</mat-icon></button>
+          
+          <button *ngIf="element.blocked != 'null'"  (click)="unblock(element?.employer.id)" type="button" class=" dark:text-slate-300   rounded-md font-medium text-cyan-600 hover:text-cyan-500 "><mat-icon [ngClass]="{'unblock': element?.blocked != 'null'}" class="text-red-600 text-lg">block</mat-icon></button>
+
+        </span> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions2">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Actions
+        </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300" >  <span class="ml-4 flex-shrink-0 flex items-start space-x-4">
+          <button  matTooltip="envoyer les tokens de verifications" (click)="makeTransaction(element.user.walletPublicKey,element.moreInfoId)"   type="button" class=" dark:text-slate-300   rounded-md font-medium text-cyan-600 hover:text-cyan-500 "><mat-icon  class="text-green-600 hover:bg-gray-100 rounded-full text-lg">done</mat-icon></button>
+        </span> </td>
+      </ng-container>
+ 
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div *ngIf="dataSource.data.length === 0" class="text-center mt-4 text-gray-500">
+      Les données ne sont pas disponnible.
+    </div>
+    <mat-paginator 
+        #paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+        class=" dark:text-slate-300 dark:bg-slate-700">
+    </mat-paginator>
+   
+  
+  </div>

@@ -1,0 +1,36 @@
+<form [formGroup]="utilisateurForm" >
+    <div class="space-y-2 px-6">
+      <h2 class="text-xl pt-2 font-medium leading-6 dark:text-slate-300 text-gray-900">Ajouter un utilisateur</h2>
+      <div class="border-b border-gray-900/10 pb-6">
+          <div class="mt-4 grid grid-cols-1 p-8 gap-x-6 gap-y-4 sm:grid-cols-1">
+          
+      
+            <div class="sm:col-span-1" *ngFor="let element of inputs ">
+              <label for="{{element.label}}" class="block dark:text-slate-300 text-sm font-medium leading-6 text-gray-900">{{element.name}}</label>
+              <div class="mt-2">
+                <input id="{{element.label}}" formControlName="{{element.label}}" [ngClass]="{ 'is-invalid': utilisateurForm.get(element.label)?.touched && utilisateurForm.get(element.label)?.invalid }"
+                type="{{element.type}}"   name="{{element.label}}" autocomplete="{{element.type}}" class="block min-w-full dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-900 shadow-sm ring-1 px-3 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6">
+              </div>
+              <div *ngIf="utilisateurForm.get(element.label)?.touched && utilisateurForm.get(element.label)?.invalid" class="error-message">
+                <span class="text-red-700" *ngIf="utilisateurForm.get(element.label)?.errors?.['required']">{{element.name}} est Obligatoire.</span>
+              </div>
+            </div>
+          <div>
+              <label  class="block dark:text-slate-300 text-sm font-medium leading-6 text-gray-900">Roles</label>
+              <app-dropdown [list]="list" (result)="update($event)"></app-dropdown>
+          </div>
+          <div>
+              <label  class="block dark:text-slate-300 text-sm font-medium leading-6 text-gray-900">Categories</label>
+              <app-dropdown [list]="list2" (result)="update2($event)"></app-dropdown>
+          </div>
+         
+  
+  
+        </div>
+      </div>
+    </div>
+    <div class=" mx-12 flex items-center justify-end gap-x-6">
+      <button type="reset" class="text-sm dark:text-slate-200 font-semibold leading-6 text-gray-900">Cancel</button>
+      <button type="submit" (click)="openDialog()" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">ajouter</button>
+    </div>
+  </form>

@@ -1,0 +1,105 @@
+<div *ngIf="!publickey" class="bg-yellow-50 p-4">
+  <div class="flex">
+    <div class="flex-shrink-0">
+      <!-- Heroicon name: solid/x-circle -->
+      <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <div class="ml-3">
+      <h3 class="text-sm font-medium text-yellow-800">Il faut se connecter à un portefeuille !</h3>
+    </div>
+  </div>
+</div>
+<div *ngIf="publickey && !balance && !Transactions"   class="flex justify-center gap-4 mt-44  ">
+  <div  class="flex justify-center gap-4   animate-bounce">
+    <div class="rounded-full    bg-cyan-400 w-4 h-4"></div>
+    <div class="rounded-full  delay-150 bg-red-400 w-4 h-4"></div>
+    <div class="rounded-full  delay-75 bg-green-400 w-4 h-4"></div>
+  </div>
+</div>
+
+<div *ngIf="publickey && balance && Transactions" @fadeinout class=" mt-8">
+  <div *ngIf="balance" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Card -->
+      <app-card  class="bg-gradient-to-r from-emerald-600  to-cyan-600 rounded-md" [name]="'Jetons utilisés'" [coins]="" [amount]="sommesender"></app-card>
+      <app-card class="bg-gradient-to-r from-cyan-600  to-emerald-600 rounded-md"  [name]="'Balance'" [coins]="" [amount]="balance.lamports/10000-100"></app-card>
+      <app-card class="bg-gradient-to-r from-emerald-600  to-cyan-600 rounded-md"  [name]="'Jetons recus'" [coins]="" [amount]="sommereceiver-100"></app-card>
+
+      <!-- More items... -->
+    </div>
+  </div>
+<div class="flex justify-evenly">
+    
+    
+   
+    <div class="col-span-2">
+
+      <div class=" flex mt-8 ml-4 rounded-md justify-between text-center text-sm     ">
+        <div class="bg-cyan-700 rounded-md  p-2 pl-4 gap-2 h-12 flex  ">
+          <button (click)="toggle = true" [ngClass]="toggle  ? 'selected' : ''" class="  notSelected transition mx-1 duration-300 ease-in-out   px-4 h-8">Mensuelle</button>
+          <button (click)="toggle = false" [ngClass]="!toggle  ? 'selected' : ''"  class=" notSelected transition duration-300 ease-in-out px-4 h-8">Annuelle</button>
+        </div>
+      </div>
+      <div *ngIf="toggle" class=" dark:fill-slate-300 col-span-3 pt-6 px-10">
+        <ngx-charts-bar-vertical 
+        [view]="[700,300]"
+        [results]="envoiTokensByMonth"
+        [legendTitle]="'Token sended societe'"
+        [yAxisLabel]="'Jetons'"
+        [xAxisLabel]="'Mois'"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true"
+        >
+        </ngx-charts-bar-vertical>
+      </div>
+      
+      <div *ngIf="!toggle" class=" dark:fill-slate-300 col-span-3 pt-6 px-10">
+        <ngx-charts-bar-vertical 
+        [view]="[700,300]"
+        [customColors]="barChartcustomColors"
+        [results]="envoiTokensByYear"
+        [legendTitle]="'Token sended societe'"
+        [yAxisLabel]="'Jetons'"
+        [xAxisLabel]="'Année'"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true"
+
+        >
+        </ngx-charts-bar-vertical>
+      </div>
+    </div>
+    
+    
+    
+  <div *ngIf="Transactions" class="  mt-8  ">
+    <div>
+      <app-preview-transaction *ngFor="let tx of Transactions " [user]="'commercant'" [transaction]="tx"  [date]="convert(tx.blockTime)"></app-preview-transaction>
+    </div>
+    
+    <a routerLink="/commercant/Alltransaction" class="text-slate-400 hover:text-slate-300 transition cursor-pointer text-center ">  <p class="text-center"> voir plus </p></a>
+  </div>
+
+</div>
+
+<!--<div class=" dark:fill-slate-300 col-span-3 pt-6 px-10">
+  <ngx-charts-bar-vertical 
+  [view]="[700,300]"
+  [results]="saleData"
+  [legendTitle]="'Token exchange Chart'"
+  [yAxisLabel]="'Tokens'"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  [xAxis]="true"
+  [yAxis]="true"
+  [gradient]="true"
+  >
+  </ngx-charts-bar-vertical>
+</div>-->

@@ -1,0 +1,65 @@
+<div class="p-6" *ngIf="tx">
+    <div class="px-4 sm:px-0">
+      <h3 class="text-base font-semibold leading-7 text-gray-900">Information de Transaction </h3>
+    </div>
+    <div class="mt-6 border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="dark:text-slate-300 text-sm font-medium leading-6 text-gray-900">Signature </dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 dark:text-slate-300  sm:mt-0">{{signature}}</dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="dark:text-slate-300  text-sm font-medium leading-6 text-gray-900">
+            Type Transaction
+          </dt>
+          <dd  class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            <span *ngIf="tx?.transaction.message.accountKeys.length-3 > 1"  class="inline-flex dark:bg-slate-300 dark:text-slate-500 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">MultipleTransactions</span>
+            <span *ngIf="tx?.transaction.message.accountKeys.length-3 <= 1"  class="inline-flex dark:bg-slate-300 dark:text-slate-500 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800">TransactionSimple</span>
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm dark:text-slate-300  font-medium leading-6 text-gray-900">Transfer d'argent</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+
+            <div  *ngFor="let key of counter(tx.transaction.message.accountKeys.length-2),let i=index">
+              <div *ngIf=" tx.transaction.message.accountKeys[i+1].toString() !='11111111111111111111111111111111' " class="shadow-sm p-3 bg-slate-100 dark:text-slate-300 dark:bg-slate-600   rounded-lg text-slate-600 mt-2 flex" >
+                <p>Transfer d'argent de </p>
+                <a class="signature font-medium mx-2"> {{tx.transaction.message.accountKeys[0].toString() | pubKeyFormat:5}} </a>
+                <p>à</p>
+                <a class="signature font-medium mx-2"> {{tx.transaction.message.accountKeys[i+1].toString()| pubKeyFormat:5}} </a>
+                <p class="mx-1">d'un montant de </p>
+                <p class="font-medium px-2"> {{abs((tx.meta.preBalances[i+1]-tx.meta.postBalances[i+1])/10000)}}</p>
+                <p>DT</p>
+            </div>
+          </div>
+
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm dark:text-slate-300  font-medium leading-6 text-gray-900">Horodatage</dt>
+          <dd class="mt-1 text-sm dark:text-slate-300  leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{convert(tx.blockTime)}}</dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm dark:text-slate-300  font-medium leading-6 text-gray-900">Identifiant</dt>
+          <dd class="mt-1 text-sm dark:text-slate-300  leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            <div class="" *ngFor="let tx of users"><span class="text-emerald-600 mx-2">{{tx.walletPublicKey | pubKeyFormat:7}}</span>:{{tx.userName}}</div>
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="text-sm dark:text-slate-300  font-medium leading-6 text-gray-900">Frais</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-slate-300  sm:col-span-2 sm:mt-0">{{tx.meta.fee/100000}} DT</dd>
+        </div>
+       
+      </dl>
+    </div>
+  </div>
+
+  <div *ngIf="!tx"   class="flex justify-center gap-4 mt-44  ">
+    <div  class="flex justify-center gap-4   animate-bounce">
+      <div class="rounded-full    bg-cyan-400 w-4 h-4"></div>
+      <div class="rounded-full  delay-150 bg-red-400 w-4 h-4"></div>
+      <div class="rounded-full  delay-75 bg-green-400 w-4 h-4"></div>
+    </div>
+  </div>
+  
+

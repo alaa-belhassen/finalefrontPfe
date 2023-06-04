@@ -1,0 +1,127 @@
+<div class="flex mt-16  text-center text-sm     ">
+    <div class="bg-cyan-700  p-2 pl-4 h-12 flex gap-2 ">
+    <button (click)="state = 1 ; changeData(state)" [ngClass]="state == 1 ? 'selected' : ''" class=" notSelected transition mx-1 duration-300 ease-in-out   px-4 h-8">Société</button>
+    <button (click)="state = 2 ; changeData(state)" [ngClass]="state == 2 ? 'selected' : ''" class=" notSelected transition duration-300 ease-in-out px-4 h-8">Commercant</button>
+    </div>
+    <div *ngIf="state==1" class="gap-2 flex justify-between mx-16">
+      
+        <input  placeholder="Montant" class=" dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-900 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" [(ngModel)]="filterEntity.amount">
+        <input  placeholder="Nom Société" class=" dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-900 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" [(ngModel)]="filterEntity.employer.employer.userName">
+        <div class="">
+          <div class="">
+            <select id="typedeclient2" [(ngModel)]="filterEntity.etat"   autocomplete="typedeclient" class="h-12 dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-400  shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6">
+              <option value="undefined" disabled selected hidden >Etat</option>                                     
+              <option value="encours">Encours</option>
+              <option value="rejected">Rejeter</option>
+              <option value="Valid">Valid</option>
+            </select>
+          </div>
+      </div>       
+       <!--  <select id="typedeclient" placeholder="etat" formControlName="etat" name="etat" autocomplete="etat" class="dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-900 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" >
+              <option [selected]="filterEntity.etat" value="encours">encours</option>
+              <option value="Valid">Valid</option>
+              <option value="Removed">Removed</option>
+            </select>-->   
+      
+        <input matInput  type="date"  [(ngModel)]="filterEntity.date"  class=" dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-400 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" placeholder="Choose a date">
+    </div>
+    <div *ngIf="state==2" class="gap-2 flex justify-between mx-16">
+    
+      <input  placeholder="Montant" class=" dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-900 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" [(ngModel)]="filterEntity.amount">
+      <input  placeholder="Nom Société" class=" dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-900 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" [(ngModel)]="filterEntity.shopowner.employer.userName">
+      <div class="">
+        <div class="">
+          <select id="typedeclient" ariaPlaceholder="etat"  [(ngModel)]="filterEntity.etat"  name="typedeclient" autocomplete="typedeclient" class="  h-12 dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-400 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6">
+            <option value="undefined" disabled selected hidden  >Etat</option>                                     
+            <option value="encours">Encours</option>
+            <option value="rejected">Rejeter</option>
+            <option value="Valid">Valid</option>
+          </select>
+        </div>
+      </div>
+      <input matInput  type="date"  [(ngModel)]="filterEntity.date" class=" dark:text-white dark:bg-slate-600 dark:focus:ring-slate-400  rounded-md border-0 py-2  text-gray-400 shadow-sm ring-1 px-3 ring-inset ring-gray-300  focus:ring-inset focus:outline-none focus:border-transparent border-transparent  sm:max-w-xs sm:text-sm sm:leading-6" placeholder="Choose a date">
+  </div>
+
+</div>
+
+<div class="">
+   
+    <table mat-table class="dark:bg-slate-800 " matTableFilter [exampleEntity]="filterEntity" [filterType]="filterType"  [dataSource]="dataSource">
+  
+      <!-- Position Column -->
+     
+      <!-- Name Column -->
+      <ng-container matColumnDef="namesociete">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Nom Société </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300 "> {{element?.employer.employer.userName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="namecommercant">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Nom commercant</th>
+        <td mat-cell *matCellDef="let element"  class=" dark:text-slate-300 "> {{element?.shopowner.employer.userName}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Date de la demande </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300 "> {{element?.date | date:'mediumDate'}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Besoin de jetons </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300  "> <span class="">{{element?.amount }}</span> Jetons</td>
+      </ng-container>
+      <ng-container matColumnDef="form">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> form </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300"> pdf </td>
+      </ng-container>
+      <ng-container matColumnDef="etat">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300 "> Etat </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300">         
+            <span *ngIf="element.etat =='valid' " class="inline-flex dark:bg-slate-300 dark:text-slate-500 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Validé</span>
+            <span *ngIf="element.etat =='encours'" class="inline-flex dark:bg-slate-300 dark:text-slate-500 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">En cours</span>
+            <span *ngIf="element.etat =='rejected'" class="inline-flex dark:bg-slate-300 dark:text-slate-500 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Rejeté</span>
+            <span *ngIf="element.etat =='accepter'" class="inline-flex dark:bg-orange-300 dark:text-slate-500 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">Accepté</span>
+
+          </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Actions </th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300"> 
+          <span *ngIf="element.etat =='encours'" class="ml-4 flex-shrink-0 flex items-start space-x-4">
+            <button matTooltip="valider demande" *ngIf="state == 1" (click)="RedirectDetails(element?.idDemandeTransaction,element?.employer.employer.id,element?.amount,element.etat )"   type="button" class=" dark:text-slate-300   rounded-md font-medium text-cyan-600 hover:text-cyan-500 "><mat-icon  class="text-cyan-600 hover:bg-gray-100 rounded-full text-lg">receipt</mat-icon></button>
+            <button matTooltip="valider demande" *ngIf="state == 2" (click)="RedirectDetails(element?.idDemandePayement,element?.idShopowner,element?.amount,element.etat )"   type="button" class=" dark:text-slate-300   rounded-md font-medium text-cyan-600 hover:text-cyan-500 "><mat-icon  class="text-cyan-600 hover:bg-gray-100 rounded-full text-lg">receipt</mat-icon></button>
+
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="besoindargent">
+        <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Besoin d'argent</th>
+        <td mat-cell *matCellDef="let element" class=" dark:text-slate-300"> <span class="">{{element?.amount }}</span> Dt </td>
+      </ng-container>
+      
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator 
+        #paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+        class=" dark:text-slate-300 dark:bg-slate-700">
+    </mat-paginator>
+
+   
+
+   <!--
+    <mat-form-field>
+      <input matInput type="date" [matDatepicker]="picker" [(ngModel)]="filterEntity.date" (dateInput)="format()" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+-->
+</div>

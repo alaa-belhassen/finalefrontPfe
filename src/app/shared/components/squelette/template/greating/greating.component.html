@@ -1,0 +1,35 @@
+<div class="bg-white shadow  dark:bg-slate-800 ">
+<div class="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
+    <div class="py-6 md:flex md:items-center md:justify-between lg:border-t lg:border-gray-200">
+      <div class="grid grid-cols-6 min-w-0">
+        <!-- Profile -->
+        <div class="flex items-center col-span-3">
+          <div>
+            <div class="flex items-center">
+              <img class="h-16 w-16 rounded-full sm:hidden" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.6&w=256&h=256&q=80" alt="">
+              <h1 class=" pl-2 text-2xl font-bold leading-7 text-gray-900 dark:text-white sm:leading-9 sm:truncate">Bienvenue {{name}}</h1>
+            </div>
+            <dl class=" ml-2 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">             
+              <dt class="sr-only ">Account status</dt>
+              <dd class=" dark:text-white flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
+                <!-- Heroicon name: solid/check-circle -->
+                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                compte {{message}} 
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6  flex space-x-3 md:mt-0 md:ml-4">
+       
+        <div class="w-32  text-lg font-medium" >
+          {{now | date:'HH:mm:ss'}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

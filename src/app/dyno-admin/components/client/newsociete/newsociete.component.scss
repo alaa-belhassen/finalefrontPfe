@@ -1,0 +1,26 @@
+::ng-deep .mat-snack-bar-container.my-class {
+    color: blue;
+  }
+ 
+   ::ng-deep .mat-step-header  {
+    background-color: rgb(14 116 144)   !important;
+    .mat-step-label{
+      color: rgb(203 213 225) !important;
+
+    }
+      &:hover{
+        background-color: rgb(8 145 178) !important;
+      }
+      .mat-step-icon-selected {
+        background-color: rgb(8 145 178);
+      }
+      .mat-step-icon-state-edit{
+        background-color: rgb(8 145 178);
+
+      }
+      
+    }
+
+    .is-invalid{
+      border: 1px solid red !important;
+    }

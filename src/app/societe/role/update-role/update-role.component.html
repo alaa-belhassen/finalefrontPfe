@@ -1,0 +1,12 @@
+<form [formGroup]="roleForm" (ngSubmit)="addnewRole()" class="p-12 rounded-md" >
+
+<div class="grid  grid-cols-1 dark:bg-slate-900  rounded-md  p-6 "> 
+    <h1>Sélectionner Permissions</h1>
+    <mat-checkbox color='primary' class="border-slate-100 ng-noborder" *ngFor="let element of input" formControlName="{{element.name}}"> <span class="dark:text-slate-300">{{element.name}}</span></mat-checkbox>
+  </div>
+<div class=" flex  items-center justify-end gap-x-6">
+    <button type="reset" (click)="onNoClick()" class="text-sm dark:text-slate-200 font-medium  leading-6 text-black-400">Annuler</button>
+    <button type="submit"  class="rounded-md bg-cyan-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 ">valider</button>
+</div>
+
+</form>

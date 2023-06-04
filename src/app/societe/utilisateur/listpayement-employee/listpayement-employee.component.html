@@ -1,0 +1,41 @@
+<div class=" flex  justify-between mt-16  text-center text-sm ">
+    <h2 class="col-span-1 px-4">Listes des Payements Reçue</h2>
+   
+  </div>
+  
+  <div class="">
+     
+      <table mat-table class="dark:bg-slate-800 "   [dataSource]="dataSource">
+    
+        <!-- Position Column -->
+        <ng-container matColumnDef="position" >
+          <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300">  Nom </th>
+          <td mat-cell *matCellDef="let element"  class=" dark:text-slate-300 "> {{name}} </td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Jours Travaillés </th>
+          <td mat-cell *matCellDef="let element" class=" dark:text-slate-300"> {{element?.dayOfwork}}</td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="categorie">
+          <th mat-header-cell *matHeaderCellDef class=" dark:text-slate-300"> Montant </th>
+          <td mat-cell *matCellDef="let element" class=" dark:text-slate-300 ">{{element?.montant}}</td>
+        </ng-container>
+    
+      
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator 
+          #paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+          class=" dark:text-slate-300 dark:bg-slate-700">
+      </mat-paginator>
+    </div>

@@ -1,0 +1,23 @@
+.container{
+    display:flex;
+    p{
+        color:rgba(23, 154, 247, 0.886);
+    }
+    span{
+        margin-left:1em;
+    }
+}
+.signature{
+    transition: all 0.5ms ease-in-out;
+    cursor:pointer;
+    &:hover{
+        color:aquamarine;
+    }
+}
+.card{
+    height:3.5em;
+    line-height: 0.5em;
+    .strong{
+        font-weight: 600;
+    }
+}

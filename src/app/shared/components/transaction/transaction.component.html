@@ -1,0 +1,50 @@
+<div class="dark:text-slate-300 flex justify-evenly">
+<div class="  px-4 py-3 w-80">
+<div >
+    <label for="price" class="block text-sm  font-medium leading-6 ">Transaction</label>
+    <div class="relative mt-2 rounded-md shadow-sm">
+      <input type="value" name="price" #amount class=" dark:text-slate-300 dark:bg-slate-600 block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6" placeholder="0.00">
+      <div class="absolute inset-y-0 right-0 flex items-center">
+        <label for="currency" class="sr-only">Currency</label>
+        <select id="currency" name="currency" [disabled]="true" class=" dark:text-slate-300 h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+          <option>Dcoin</option>  
+        </select>
+      </div>
+    </div>
+    <input type="text" name="price" #receiver class="dark:text-slate-300 dark:bg-slate-600 block w-full my-1 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="receiver">
+
+</div>
+
+
+<span class="">
+    <button type="button"  (click)="makeTransaction(receiver.value,amount.value)" class=" bg-cyan-600 inline-flex items-center rounded-md px-3 py-2 text-sm  text-white shadow-sm hover:bg-cyan-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"> 
+      Transaction
+    </button>
+</span>
+</div>
+
+<div class="dark:text-slate-300  px-4 py-3 w-80">
+  <div >
+      <label for="price" class="block text-sm  font-medium leading-6 ">airdropPrice</label>
+      <div class="relative mt-2 rounded-md shadow-sm">
+        <input type="value" name="price" #amount2 class="dark:text-slate-300 dark:bg-slate-600 block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6" placeholder="0.00">
+        <div class="absolute inset-y-0 right-0 flex items-center">
+          <label for="currency" class="sr-only">Currency</label>
+          <select id="currency" name="currency" [disabled]="true" class="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+            <option>Dcoin</option>  
+          </select>
+        </div>
+      </div>
+      <input type="text" name="price" #receiver2 class="dark:text-slate-300  dark:bg-slate-600 block w-full my-1 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6" placeholder="receiver">
+  
+  </div>
+  
+  
+  <span class="">
+      <button type="button"  (click)="airdrop(receiver2.value,amount2.value)" class="bg-cyan-600 inline-flex items-center rounded-md  px-3 py-2 text-sm  text-white shadow-sm hover:bg-cyan-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"> 
+        Transaction
+      </button>
+  </span>
+  </div>
+</div>
+  

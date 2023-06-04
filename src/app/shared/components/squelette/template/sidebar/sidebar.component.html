@@ -1,0 +1,30 @@
+
+<nav class="mt-5 flex-1 flex flex-col divide-y divide-cyan-800 overflow-y-auto" aria-label="Sidebar">
+    
+    <div class="px-2 space-y-1">
+      <!-- Current: "bg-cyan-800 text-white", Default: "text-cyan-100 hover:text-white hover:bg-cyan-600" -->
+      <div *ngFor='let nav of navbarlist'>
+      <a  routerLinkActive="selected " routerLink="{{nav.navigation}}"  class="notSelected group" aria-current="page">
+        <!-- Heroicon name: outline/home -->
+        <mat-icon class="mr-4 flex-shrink-0 h-6 w-6  text-cyan-200">{{nav.icon}}</mat-icon>
+        <p class="hidden lg:block">{{nav.name}}</p>
+      </a>
+      </div>
+    </div>
+
+    <div class="mt-6 pt-6">
+      <div class="px-2 space-y-1">
+        <a href="#" routerLinkActive="selected " routerLink="settings" class="group notSelected ">
+          <!-- Heroicon name: outline/cog -->
+          <mat-icon class="mr-4 flex-shrink-0 h-6 w-6  text-cyan-200">settings</mat-icon>
+          <p class="hidden lg:block">Paramétres</p> 
+        </a>
+       
+        <a href="#" (click)="disconnect()" class="group notSelected ">
+          <!-- Heroicon name: outline/question-mark-circle -->
+          <mat-icon class="mr-4 flex-shrink-0 h-6 w-6  text-cyan-200">exit_to_app</mat-icon>
+         <p class="hidden lg:block">Déconnecter</p> 
+        </a>
+      </div>
+    </div>
+  </nav>
